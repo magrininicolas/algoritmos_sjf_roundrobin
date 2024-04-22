@@ -13,6 +13,8 @@ type Processo struct {
 	Tempo, Te, Tr int
 }
 
+var tempoTotal int = 0
+
 func (p Processo) String() string {
 	return fmt.Sprintf("Processo: %s\nTempo de execução: %d\nTempo de espera: %d\nTempo de turnaround: %d", p.Nome, p.Tempo, p.Te, p.Tr)
 }
@@ -68,9 +70,13 @@ func Sjf(prontos []Processo) {
 		retorno = espera + prontos[i].Tempo
 		prontos[i].Te = espera
 		prontos[i].Tr = retorno
+    if i == len(prontos) - 1 {
+      tempoTotal = prontos[i].Tr
+    }
 	}
 	showProntos(prontos)
 	showMedia(prontos)
+  fmt.Println("Tempo total: ", tempoTotal)
 }
 
 func calculaTotal(prontos []Processo) (int, int) {
