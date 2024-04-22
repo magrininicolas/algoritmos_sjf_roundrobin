@@ -13,6 +13,10 @@ type Processo struct {
 	Tempo, Te, Tr int
 }
 
+func (p Processo) String() string {
+	return fmt.Sprintf("Processo: %s\nTempo de execução: %d\nTempo de espera: %d\nTempo de turnaround: %d", p.Nome, p.Tempo, p.Te, p.Tr)
+}
+
 func Inserir(prontos []Processo) []Processo {
 	if len(prontos) == TAM {
 		fmt.Println("Lista de processos cheia")
@@ -101,10 +105,7 @@ func showProntos(prontos []Processo) {
 	}
 	for _, p := range prontos {
 		fmt.Println("--------------------------------------------")
-		fmt.Println("Processo:", p.Nome)
-		fmt.Println("Tempo de execução", p.Tempo)
-		fmt.Println("Tempo de espera:", p.Te)
-		fmt.Println("Tempo de turnaround: ", p.Tr)
+		fmt.Println(p.String())
 		fmt.Println("--------------------------------------------")
 	}
 }
@@ -112,7 +113,7 @@ func showProntos(prontos []Processo) {
 func main() {
 	var op int
 	var prontos []Processo
-	for ok := true; ok; ok = (op != 4) {
+	for op != 4 {
 		op = Menu()
 		switch op {
 		case 1:
