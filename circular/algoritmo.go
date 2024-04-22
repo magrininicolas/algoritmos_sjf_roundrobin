@@ -12,6 +12,10 @@ type Processo struct {
 	TempoInicial, TempoAtual, Te, Tr int
 }
 
+func (p Processo) String() string {
+  return fmt.Sprintf("Processo: %s\nTempo de turnaround: %d\nTempo de espera: %d\n", p.Nome, p.Tr, p.Te)
+}
+
 var tempoTotal int = 0
 
 func Inserir(prontos []Processo) []Processo {
@@ -63,6 +67,7 @@ func CircularPasso(quantum int, prontos []Processo) {
 	if terminados(prontos) {
 		fmt.Println("Lista Inicial: ")
 		showInicial(prontos)
+    showTemposTeTr(prontos)
 		showMedias(prontos)
 	} else {
 		showCircular(prontos)
@@ -97,6 +102,7 @@ func CircularDireto(quantum int, prontos []Processo) {
 	fmt.Println("Lista Inicial:")
 	showInicial(prontos)
 	fmt.Println("Tempos Finais:")
+  showTemposTeTr(prontos)
 	showMedias(prontos)
 }
 
@@ -130,6 +136,14 @@ func findSumRetornoEspera(prontos []Processo) (int, int) {
 		sumRetorno += prontos[i].Tr
 	}
 	return sumRetorno, sumEspera
+}
+
+func showTemposTeTr(prontos []Processo) {
+  for _, p := range prontos {
+    fmt.Println("--------------------------------------------")
+    fmt.Println(p.String())
+    fmt.Println("--------------------------------------------")
+  }
 }
 
 func showMedias(prontos []Processo) {
